@@ -38,14 +38,14 @@ const QuoteDetail = () => {
       <Switch>
         <Route path={match.path} exact>
           <div className="centered">
-            <Link className="btn--flat" to={`${match.url}/comments`}>
+            <Link className="btn--flat" to={`${match.url}/comments`} replace>
               Load Comments
             </Link>
           </div>
         </Route>
         <Route path={`${match.path}/comments`}>
           <div className="centered">
-            <Link className="btn--flat" to={match.url}>
+            <Link className="btn--flat" to={match.url} replace>
               Hide Comments
             </Link>
           </div>
