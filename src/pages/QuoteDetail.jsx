@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  Link,
-  Route,
-  useParams,
-  Switch,
-  useRouteMatch,
-} from "react-router-dom";
+import { Link, Route, useParams, Routes } from "react-router-dom";
 
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
 import Comments from "../components/comments/Comments";
@@ -16,7 +10,6 @@ import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 const QuoteDetail = () => {
   const params = useParams();
-  const match = useRouteMatch();
 
   const { quoteId } = params;
 
@@ -46,23 +39,31 @@ const QuoteDetail = () => {
   return (
     <>
       <HighlightedQuote text={loadedQuote.text} author={loadedQuote.author} />
-      <Switch>
-        <Route path={match.path} exact>
-          <div className="centered">
-            <Link className="btn--flat" to={`${match.url}/comments`} replace>
-              Load Comments
-            </Link>
-          </div>
-        </Route>
-        <Route path={`${match.path}/comments`}>
-          <div className="centered">
-            <Link className="btn--flat" to={match.url} replace>
-              Hide Comments
-            </Link>
-          </div>
-          <Comments />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route
+          path=""
+          element={
+            <div className="centered">
+              <Link className="btn--flat" to="comments" replace>
+                Load Comments
+              </Link>
+            </div>
+          }
+        />
+        <Route
+          path="comments"
+          element={
+            <>
+              <div className="centered">
+                <Link className="btn--flat" to=".." replace>
+                  Hide Comments
+                </Link>
+              </div>
+              <Comments />
+            </>
+          }
+        />
+      </Routes>
     </>
   );
 };
